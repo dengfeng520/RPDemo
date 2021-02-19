@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="Vcs-n4-bBU">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--Navigation Controller-->
+        <scene sceneID="JDF-3f-hwh">
+            <objects>
+                <navigationController id="Vcs-n4-bBU" sceneMemberID="viewController">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="N7P-Lb-hQa">
+                        <rect key="frame" x="0.0" y="44" width="414" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="BYZ-38-t0r" kind="relationship" relationship="rootViewController" id="Pqv-ga-ufW"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="isY-N4-vXp" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-625" y="65"/>
+        </scene>
+        <!--View Controller-->
+        <scene sceneID="tne-QT-ifu">
+            <objects>
+                <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="OperationDemo" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cfP-Nn-h4W">
+                                <rect key="frame" x="88" y="148" width="238" height="30"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="30" id="Vaf-Pf-Mfa"/>
+                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="238" id="dKw-jl-g35"/>
+                                </constraints>
+                                <state key="normal" title="downVC">
+                                    <color key="titleColor" systemColor="linkColor"/>
+                                </state>
+                                <connections>
+                                    <action selector="clickDownVC:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Dq9-0C-3bH"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="NT3-uh-nq3">
+                                <rect key="frame" x="88" y="198" width="238" height="30"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="30" id="SE1-KL-Itp"/>
+                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="238" id="kAL-Qy-i7w"/>
+                                </constraints>
+                                <state key="normal" title="serialVC">
+                                    <color key="titleColor" systemColor="linkColor"/>
+                                </state>
+                                <connections>
+                                    <action selector="clickSerialVC:" destination="BYZ-38-t0r" eventType="touchUpInside" id="grK-t4-nJX"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3hD-Mf-GBj">
+                                <rect key="frame" x="88" y="248" width="238" height="30"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="238" id="6PW-HI-wcI"/>
+                                    <constraint firstAttribute="height" constant="30" id="Nzt-bV-FJ5"/>
+                                </constraints>
+                                <state key="normal" title="cancelVC">
+                                    <color key="titleColor" systemColor="linkColor"/>
+                                </state>
+                                <connections>
+                                    <action selector="clickCancelVC:" destination="BYZ-38-t0r" eventType="touchUpInside" id="dGn-i9-AsB"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="BKp-49-S1d">
+                                <rect key="frame" x="88" y="298" width="238" height="30"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="30" id="Kdo-BM-J9K"/>
+                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="238" id="fv2-M4-x3I"/>
+                                </constraints>
+                                <state key="normal" title="Operation 继承">
+                                    <color key="titleColor" systemColor="linkColor"/>
+                                </state>
+                                <connections>
+                                    <action selector="clickInheritVC:" destination="BYZ-38-t0r" eventType="touchUpInside" id="R1t-Aa-EdB"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="3hD-Mf-GBj" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="1GK-Fh-ZDu"/>
+                            <constraint firstItem="NT3-uh-nq3" firstAttribute="top" secondItem="cfP-Nn-h4W" secondAttribute="bottom" constant="20" id="8w0-vV-vk2"/>
+                            <constraint firstItem="3hD-Mf-GBj" firstAttribute="top" secondItem="NT3-uh-nq3" secondAttribute="bottom" constant="20" id="LYH-M5-P3V"/>
+                            <constraint firstItem="BKp-49-S1d" firstAttribute="top" secondItem="3hD-Mf-GBj" secondAttribute="bottom" constant="20" id="PSM-lj-Suj"/>
+                            <constraint firstItem="NT3-uh-nq3" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="kAq-a8-vLY"/>
+                            <constraint firstItem="cfP-Nn-h4W" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="60" id="lmg-RC-Epi"/>
+                            <constraint firstItem="cfP-Nn-h4W" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="sL0-ZG-ReE"/>
+                            <constraint firstItem="BKp-49-S1d" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="wKe-Zb-0O7"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" id="Vcz-Ne-7Jl"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="82.608695652173921" y="64.955357142857139"/>
+        </scene>
+    </scenes>
+    <resources>
+        <systemColor name="linkColor">
+            <color red="0.0" green="0.47843137254901963" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+    </resources>
+</document>
