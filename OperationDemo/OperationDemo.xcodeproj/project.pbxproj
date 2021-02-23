@@ -23,6 +23,7 @@
 		1D91B8F725DF66FE00919C5E /* DownloadImageTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D91B8F625DF66FE00919C5E /* DownloadImageTableViewCell.swift */; };
 		1D9344D625DF95D2008C9B37 /* InheritViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D9344D525DF95D2008C9B37 /* InheritViewController.swift */; };
 		1D9344DA25DF96C5008C9B37 /* OperationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D9344D925DF96C5008C9B37 /* OperationManager.swift */; };
+		1D9EFE7A25E10640006359F6 /* GCDManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D9EFE7925E10640006359F6 /* GCDManager.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -44,6 +45,7 @@
 		1D91B8F625DF66FE00919C5E /* DownloadImageTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DownloadImageTableViewCell.swift; sourceTree = "<group>"; };
 		1D9344D525DF95D2008C9B37 /* InheritViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InheritViewController.swift; sourceTree = "<group>"; };
 		1D9344D925DF96C5008C9B37 /* OperationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OperationManager.swift; sourceTree = "<group>"; };
+		1D9EFE7925E10640006359F6 /* GCDManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GCDManager.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -79,6 +81,7 @@
 				1D91B8F025DF66AA00919C5E /* RPChatFPSLabel */,
 				1D91B8E825DF661300919C5E /* DownloaderManager */,
 				1D91B8DE25DF654100919C5E /* Operation */,
+				1D9EFE7825E105A2006359F6 /* GCD */,
 				1D91B8AA25DF652B00919C5E /* AppDelegate.swift */,
 				1D91B8AC25DF652B00919C5E /* SceneDelegate.swift */,
 				1D91B8AE25DF652B00919C5E /* ViewController.swift */,
@@ -143,6 +146,14 @@
 				1D9344D925DF96C5008C9B37 /* OperationManager.swift */,
 			);
 			path = OperationManager;
+			sourceTree = "<group>";
+		};
+		1D9EFE7825E105A2006359F6 /* GCD */ = {
+			isa = PBXGroup;
+			children = (
+				1D9EFE7925E10640006359F6 /* GCDManager.swift */,
+			);
+			path = GCD;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -215,6 +226,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1D9EFE7A25E10640006359F6 /* GCDManager.swift in Sources */,
 				1D91B8F725DF66FE00919C5E /* DownloadImageTableViewCell.swift in Sources */,
 				1D91B8E525DF656000919C5E /* CancelQueueViewController.swift in Sources */,
 				1D91B8AF25DF652B00919C5E /* ViewController.swift in Sources */,

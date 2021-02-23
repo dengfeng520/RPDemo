@@ -13,6 +13,8 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
         self.title = "test"
+        
+        GCDManager().configQueue()
     }
     
     @IBAction func clickDownVC(_ sender: Any) {
