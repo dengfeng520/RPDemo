@@ -35,9 +35,15 @@ let serialQueue = DispatchQueue(label: "com.tsn.demo.serialQueue")
 // 并行队列
 let concurrentQueue = DispatchQueue.init(label: "com.tsn.demo.concurrentQueue", attributes: .concurrent)
 let queue = DispatchQueue(label: "com.tsn.demo.Queue", qos: .default, attributes: .concurrent, autoreleaseFrequency: .inherit, target: nil)
+// 设置最大并发数为5
+let semap = DispatchSemaphore.init(value: 5)
+// 信号量减1
+semap.wait()
 // 同步执行
 queue.sync {
     // 播放视频一
+    // 信号量加1
+    semap.signal()
 }
 queue.sync {
     // 播放视频二
@@ -90,7 +96,7 @@ barrierQueue.async {
     // 下载弹幕
     print("-----------下载弹幕------------")
 }
-//// 栅栏任务
+//栅栏任务
 barrierQueue.async(execute: barrierTask)
 // 延迟加入队列
 DispatchQueue.main.asyncAfter(deadline: .now() + 20 * 60) {
@@ -168,3 +174,58 @@ class SuspendAndResum {
 }
 
 let test = SuspendAndResum()
+// 迭代任务
+let musicArray = Array<AnyObject?>(repeating: nil, count: 1008611)
+DispatchQueue.concurrentPerform(iterations: 1008611) { (index) in
+    print("-----------执行查找操作-----------")
+}
+// 创建任务组
+let group = DispatchGroup()
+// 下载视频
+let videoQueue = DispatchQueue(label: "com.tsn.demo.video", attributes: .concurrent)
+videoQueue.async(group: group) {
+    print("-----------开始下载视频-----------")
+}
+// 下载音频
+let audioQueue = DispatchQueue.init(label: "com.tsn.demo.audio", attributes: .concurrent)
+audioQueue.async(group: group) {
+    print("-----------开始下载音频-----------")
+}
+// 下载弹幕
+let bulletScreenQueue = DispatchQueue.init(label: "com.tsn.demo.audio", attributes: .concurrent)
+audioQueue.async(group: group) {
+    print("-----------开始下载弹幕-----------")
+}
+
+
+struct KeepModel {
+    
+}
+class bindKeep: NSObject {
+    
+    let sportArray: [KeepModel]? = [KeepModel]()
+    
+    func synchronizeKeepData() {
+        
+        guard let sportArray = sportArray else {
+            return
+        }
+        let queue = DispatchQueue(label: "com.tsn.studentsMarch.synchronizeKeepData", attributes: .concurrent)
+        sportArray.forEach { [weak self] (model) in
+            queue.async {
+                // 上传数据
+                self?.uploadSportWithModel(model: model)
+            }
+        }
+        let barrierTask = DispatchWorkItem(qos: .default, flags: .barrier) {
+            print("全部上传完成")
+        }
+        queue.async(execute: barrierTask)
+    }
+    
+    func uploadSportWithModel(model: KeepModel) {
+        
+    }
+}
+
+
