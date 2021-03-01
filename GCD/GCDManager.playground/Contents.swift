@@ -175,57 +175,247 @@ class SuspendAndResum {
 
 let test = SuspendAndResum()
 // 迭代任务
-let musicArray = Array<AnyObject?>(repeating: nil, count: 1008611)
-DispatchQueue.concurrentPerform(iterations: 1008611) { (index) in
+let musicArray = Array<AnyObject?>(repeating: nil, count: 10)
+DispatchQueue.concurrentPerform(iterations: musicArray.count) { (index) in
     print("-----------执行查找操作-----------")
 }
 // 创建任务组
 let group = DispatchGroup()
 // 下载视频
 let videoQueue = DispatchQueue(label: "com.tsn.demo.video", attributes: .concurrent)
+group.enter()
 videoQueue.async(group: group) {
     print("-----------开始下载视频-----------")
+    group.leave()
 }
 // 下载音频
 let audioQueue = DispatchQueue.init(label: "com.tsn.demo.audio", attributes: .concurrent)
+group.enter()
 audioQueue.async(group: group) {
     print("-----------开始下载音频-----------")
+    group.leave()
 }
 // 下载弹幕
 let bulletScreenQueue = DispatchQueue.init(label: "com.tsn.demo.audio", attributes: .concurrent)
+group.enter()
 audioQueue.async(group: group) {
     print("-----------开始下载弹幕-----------")
+    group.leave()
 }
+// 任务组通知
+group.notify(queue: .main) {
+    print("-----------全部下载完成,任务组通知-----------")
+}
+// 阻塞当前线程
+group.wait()
+group.wait(timeout: .now() + 1)
+group.wait(wallTimeout: .now() + 1)
+print("-----------阻塞完后，继续执行-----------")
+
+class Combination: NSObject {
+    
+    func configCombination() {
+        // 串行队列
+        let serialQueue = DispatchQueue(label: "com.tsn.students.serqueue")
+        // 并行队列
+        let concurrentQueue = DispatchQueue(label: "com.tsn.students.concurrentqueue", attributes: .concurrent)
+        // 3.1
+        print("3.1-----------\(Thread.current)-----------start")
+        serialQueue.sync {
+            sleep(1)
+            print("3.1.1-----------\(Thread.current)-----------")
+        }
+        serialQueue.sync {
+            sleep(1)
+            print("3.1.2-----------\(Thread.current)-----------")
+        }
+        serialQueue.sync {
+            sleep(1)
+            print("3.1.3-----------\(Thread.current)-----------")
+        }
+        serialQueue.sync {
+            sleep(1)
+            print("3.1.4-----------\(Thread.current)-----------")
+        }
+        print("3.1-----------\(Thread.current)-----------end")
 
 
-struct KeepModel {
-    
-}
-class bindKeep: NSObject {
-    
-    let sportArray: [KeepModel]? = [KeepModel]()
-    
-    func synchronizeKeepData() {
+        // 3.2
+//        print("3.2-----------\(Thread.current)-----------start")
+//        serialQueue.async {
+//            sleep(1)
+//            print("3.2.1-----------\(Thread.current)-----------")
+//        }
+//        serialQueue.async {
+//            sleep(1)
+//            print("3.2.2-----------\(Thread.current)-----------")
+//        }
+//        serialQueue.async {
+//            sleep(1)
+//            print("3.2.3-----------\(Thread.current)-----------")
+//        }
+//        serialQueue.async {
+//            sleep(1)
+//            print("3.2.4-----------\(Thread.current)-----------")
+//        }
+//        print("3.2-----------\(Thread.current)-----------end")
         
-        guard let sportArray = sportArray else {
-            return
-        }
-        let queue = DispatchQueue(label: "com.tsn.studentsMarch.synchronizeKeepData", attributes: .concurrent)
-        sportArray.forEach { [weak self] (model) in
-            queue.async {
-                // 上传数据
-                self?.uploadSportWithModel(model: model)
-            }
-        }
-        let barrierTask = DispatchWorkItem(qos: .default, flags: .barrier) {
-            print("全部上传完成")
-        }
-        queue.async(execute: barrierTask)
+        // 3.3 同步 + 并行
+//        print("3.3-----------\(Thread.current)-----------start")
+//        concurrentQueue.sync {
+//            sleep(1)
+//            print("3.3.1-----------\(Thread.current)-----------")
+//        }
+//        concurrentQueue.sync {
+//            sleep(1)
+//            print("3.3.2-----------\(Thread.current)-----------")
+//        }
+//        concurrentQueue.sync {
+//            sleep(1)
+//            print("3.3.3-----------\(Thread.current)-----------")
+//        }
+//        concurrentQueue.sync {
+//            sleep(1)
+//            print("3.3.4-----------\(Thread.current)-----------")
+//        }
+//        print("3.3-----------\(Thread.current)-----------end")
+        
+        
+        // 3.4 异步 + 并行
+//        print("3.4-----------\(Thread.current)-----------start")
+//        concurrentQueue.async {
+//            sleep(1)
+//            print("3.4.1-----------\(Thread.current)-----------")
+//        }
+//        concurrentQueue.async {
+//            sleep(1)
+//            print("3.4.2-----------\(Thread.current)-----------")
+//        }
+//        concurrentQueue.async {
+//            sleep(1)
+//            print("3.4.3-----------\(Thread.current)-----------")
+//        }
+//        concurrentQueue.async {
+//            sleep(1)
+//            print("3.4.4-----------\(Thread.current)-----------")
+//        }
+//        print("3.4-----------\(Thread.current)-----------end")
+        
+        
+        // 3.5.1 在主线程中调用 同步 + 主队列
+//        let mainQueue = DispatchQueue.main
+//        mainQueue.sync {
+//            sleep(1)
+//            print("1-----------\(Thread.current)-----------")
+//        }
+//        mainQueue.sync {
+//            sleep(1)
+//            print("2-----------\(Thread.current)-----------")
+//        }
+//        mainQueue.sync {
+//            sleep(1)
+//            print("3-----------\(Thread.current)-----------")
+//        }
+        
+        // 3.5.2 在其他线程中调用 同步 + 主队列
+//        let queue = DispatchQueue(label: "com.tsn.test.queue", attributes: .concurrent)
+//        queue.async {
+//            print("0-----------\(Thread.current)-----------start")
+//            let mainQueue = DispatchQueue.main
+//            mainQueue.sync {
+//                sleep(1)
+//                print("1-----------\(Thread.current)-----------")
+//            }
+//            mainQueue.sync {
+//                sleep(1)
+//                print("2-----------\(Thread.current)-----------")
+//            }
+//            mainQueue.sync {
+//                sleep(1)
+//                print("3-----------\(Thread.current)-----------")
+//            }
+//            print("4-----------\(Thread.current)-----------end")
+//        }
+        
+        
+        // 3.6 异步+主队列
+//        print("3.6-----------\(Thread.current)-----------start")
+//        let mainQueue = DispatchQueue.main
+//        mainQueue.async {
+//            sleep(1)
+//            print("3.6.1-----------\(Thread.current)-----------")
+//        }
+//        mainQueue.async {
+//            sleep(1)
+//            print("3.6.2-----------\(Thread.current)-----------")
+//        }
+//        mainQueue.async {
+//            sleep(1)
+//            print("3.6.3-----------\(Thread.current)-----------")
+//        }
+//        print("3.6-----------\(Thread.current)-----------end")
     }
     
-    func uploadSportWithModel(model: KeepModel) {
-        
+}
+
+let com = Combination()
+com.configCombination()
+
+// DispatchSource
+var num = 5
+let source: DispatchSourceTimer = DispatchSource.makeTimerSource(flags: [], queue: .global())
+source.schedule(deadline: .now(), repeating: 1)
+// 设置监听
+source.setEventHandler {
+    num = num - 1
+    if num < 0 {
+        source.cancel()
+    } else {
+        print("num-----------\(num)-----------")
+    }
+}
+// 取消监听
+source.setCancelHandler {
+    print("-----------取消监听-----------")
+}
+source.resume()
+// 线程安全
+for index in 0..<123 {
+    queue.async {
+        print("-----------\(index)-----------")
     }
 }
 
+for index in 0..<123 {
+    queue.async {
+        lock.lock()
+        print("-----------\(index)-----------")
+        lock.unlock()
+    }
+}
+// 线程死锁
+class LockTestClass {
+    init() {
+    
+        
+        // 主队列 + 同步
+//        DispatchQueue.main.sync {
+//            print("-----------死锁-----------")
+//        }
+        // 串行队列 + (同步或异步) 嵌套自身同步
+//        let serialQueue = DispatchQueue.init(label: "com.tsn.LockTestClass")
+//        serialQueue.async {
+//            serialQueue.sync {
+//                print("-----------死锁-----------")
+//            }
+//        }
+        // 互斥锁
+        func synchronized(lockData: AnyObject) {
+            objc_sync_enter(lockData)
+            objc_sync_exit(lockData)
+        }
+        
+    }
+}
+LockTestClass()
 
