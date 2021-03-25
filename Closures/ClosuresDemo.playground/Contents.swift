@@ -242,19 +242,44 @@ enum Answer {
     case D
 }
 
+extension Optional {
+    func withExtendedLifetime(_ body: (Wrapped) -> Void) {
+        guard let value = self else { return }
+        body(value)
+    }
+}
+
 class Student: CustomStringConvertible {
     var name: String = String()
-    lazy var replyClosure: (Answer) -> Void = { _ in
-        print("replyClosure=============\(self)")
+    lazy var replyClosure: (Answer) -> Void = { [weak self] _ in
+        guard let value = self else { return }
+        print("replyClosure self=============\(self)")
     }
-    
+        
     init(name: String) {
         self.name = name
-        print("==========Student init==========")
+        print("==========Student init==========\(name)")
+        replyClosure(.B)
+    }
+    
+    
+    
+    func doHomeWork() {
+        // 全局队列
+        let queue = DispatchQueue.global()
+        queue.async { [weak self] in
+            self.withExtendedLifetime { _ in
+                print("\(self?.name):开始写作业")
+                sleep(2)
+                print("\(self?.name):完成作业")
+            }
+        }
+        
+        
     }
     
     deinit {
-        print("==========Student deinit==========")
+        print("==========Student deinit==========\(self.name)")
     }
 }
 
@@ -266,17 +291,16 @@ extension Student {
 
 class Teacher {
     var isRight: Bool = false
-    
+
     init() {
         print("==========Teacher init==========")
-        let student = Student(name: "John Appleseed")
-        student.replyClosure = { (answer: Answer) in
-            
+        var student = Student(name: "Kate Bell")
+        let judgeClosure = { [unowned student] (answer: Answer) in
+            print("student===========\(student)")
         }
-        //        let judgeClosure = { (answer: Answer) in
-        //            print("\(student.name) is \(answer)")
-        //        }
-        //        student.replyClosure = judgeClosure
+        student.replyClosure = judgeClosure
+        student = Student(name: "Tom")
+        student.replyClosure(.C)
     }
     
     deinit {
@@ -285,24 +309,42 @@ class Teacher {
 }
 
 
-var student = Student(name: "John Appleseed")
-student.replyClosure(.B)
+Teacher()
+//Student(name: "Kate Bell").replyClosure(.B)
+Student(name: "Kate Bell").doHomeWork()
 
-class Role {
-    var name: String
-    // ...
-    lazy var action: () -> Void = {
-        print("\(self) takes action.")
-    }
-    init(_ name: String = "Foo") {
-        self.name = name
-        print("\(self) init")
-    }
-    
-    deinit {
-        print("\(self) deinit")
-    }
-}
 
-var boss = Role("boss")
-boss.action()
+
+
+//class Role {
+//    var name: String
+//    lazy var action: () -> Void = {
+//        print("\(self) takes action.")
+//    }
+//
+//    init(_ name: String = "Foo") {
+//        self.name = name
+//        print("\(self) init")
+//    }
+//
+//    deinit {
+//        print("\(self) deinit")
+//    }
+//}
+//
+//extension Role: CustomStringConvertible {
+//    var description: String {
+//        return "<Role: \(name)>"
+//    }
+//}
+
+//if true {
+//    var boss = Role("boss")
+//    let fn = { [unowned boss] in
+//        print("\(boss) takes action.")
+//    }
+//    boss.action = fn
+//
+//    boss = Role("hidden boss")
+//    boss.action()
+//}
