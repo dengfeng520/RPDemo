@@ -112,6 +112,7 @@ if mycolorA === mycolor {
 struct Stack<Element> {
     lazy var stackList = Array<Element>()
     // 进栈
+//    @available(*, unavailable, renamed: "")
     mutating func push(_ data: Element?) {
         guard let data = data else { return }
         stackList.append(data)
